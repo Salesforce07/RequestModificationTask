@@ -1,0 +1,26 @@
+<template>
+    <lightning-card>
+
+        <div class="slds-section slds-is-open">
+            <h3 class="slds-section__title">
+            <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
+            <lightning-icon icon-name="utility:switch" size="x-small"></lightning-icon>
+            <span class="slds-truncate" title="Section Title">Modification Enteries</span>
+            </button>
+            </h3>
+            <template if:true={modificationEnteries}>
+                <h1>Request Modification </h1>
+                <div class="outer-main-request slds-grid slds-grid_vertical slds-p-around_medium">
+                    <lightning-record-view-form class="top-request-box slds-col slds-grid slds-grid_vertical-align-end slds-gutters">
+                        <lightning-output-field class="slds-col"  label="Notes" ></lightning-output-field>
+                        <lightning-output-field class="slds-col" label="Date"></lightning-output-field>
+                        <lightning-output-field class="slds-col" label="Project"></lightning-output-field>
+                        <lightning-output-field class="slds-col" label=" Module"></lightning-output-field>
+                        <lightning-output-field class="slds-col" label="Hours"></lightning-output-field>
+                    </lightning-record-view-form>
+                </div>
+            </template>
+        </div>
+    
+    </lightning-card>
+</template>

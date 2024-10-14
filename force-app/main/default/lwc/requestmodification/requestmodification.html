@@ -1,0 +1,79 @@
+<template>
+   
+       <div onclick={hideSearch} style="height: 60vh;">
+        <div class="slds-modal__header">
+        <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate" tabindex="-1">Request Modification</h1>
+        </div>
+        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+<div class="slds-grid slds-gutters">
+       <!-- search bar-->
+       <div class="slds-form-element slds-col slds-size_9-of-12 search-bar-main-container">
+        <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+        <input onfocus={showComboboxOnFocus} type="text" value={inputKey}  onkeyup={handleSearch} class="slds-input slds-combobox__input slds-has-focus"  placeholder="Search..."
+        />
+        <span class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right search-icon-container">
+        <lightning-icon icon-name="utility:search" size="x-small" alternative-text="Search" title="Search" ></lightning-icon>
+        </span>
+        </div>
+        <template lwc:if={selectedEntry}>
+        <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right selected-container" role="none">
+            <div role="combobox" tabindex="0" class="slds-input_faux slds-combobox__input slds-combobox__input-value" aria-labelledby="combobox-label-id-130"  aria-controls="listbox-id-20" aria-expanded="false" aria-haspopup="listbox">
+            <span class="slds-truncate" >{selectedEntry.notes}</span>
+            </div>
+            <button onclick={handleRemoveEntry} class="slds-button slds-button_icon slds-input__icon slds-input__icon_right" title="Clear the text input">
+            <lightning-icon icon-name="utility:close" size="x-small" alternative-text="Clear the text input" title="Clear the text input" ></lightning-icon>
+            <span class="slds-assistive-text">Clear the text input</span>
+            </button>
+            </div>
+        </template>
+        <div style="border: 1px solid black;" class="slds-combobox">
+
+                <div class="slds-dropdown_length-5" role="listbox">
+                    <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                        <template if:true={showCombobox} for:each={searched} for:item="entry">
+                            <li onclick={handleClickedEntry} class="slds-listbox__item" key={entry.id} data-id={entry.id}>
+                                <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small" role="option">
+                                    <span class="slds-media__figure slds-listbox__option-icon"></span>
+                                    <span class="slds-media__body">
+                                        <span class="slds-truncate" title={entry}>{entry.notes} <span>{entry.id}</span></span>
+                                    </span>
+                                </div>
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slds-col slds-size_3-of-12">
+                <button onclick={handleAddEntry} disabled={disableAddButton} class="slds-button slds-button_brand">Add</button>
+                <button onclick={handleNewEntry} class="slds-button slds-button_outline-brand">Create New</button>
+        </div>
+</div>
+
+<template lwc:if={showModificationBox}>
+    <template for:each={selectedEnteriesList} for:item="choice">
+        <div key={choice.id} class="outer-main-request slds-grid slds-grid_vertical slds-p-around_medium">
+                <div class="top-request-box slds-col slds-grid slds-grid_vertical-align-end slds-gutters">
+                        <lightning-button-icon onclick={handleRemoveClickedEntry} icon-name="utility:delete" alternative-text="Delete" class="slds-m-left_xx-small slds-col" title="Delete" data-id={choice.id}></lightning-button-icon>
+                        <lightning-input onkeyup={handleModificationChange} class="slds-col" type="text" label="Notes" value={choice.notes} required="true" name="notes" data-id={choice.id} ></lightning-input>
+                        <lightning-input onchange={handleModificationChange}  class="slds-col" type="date" label="Date" value={choice.date1} required="true" name="date" data-id={choice.id}></lightning-input>
+                        <lightning-record-picker onchange={handleModificationChange} name="project" label="Project" value={choice.project} placeholder="Search Projects.." object-api-name="Project__c" data-id={choice.id}></lightning-record-picker>
+                        <lightning-record-picker onchange={handleModificationChange} name="module" filter={filter} value={choice.module} label="Module" placeholder="Search Modules.." object-api-name="Module__c" data-id={choice.id}></lightning-record-picker>
+                        <lightning-input onkeyup={handleModificationChange} class="slds-col" type="number" label="Hours" value={choice.hours} name="hours" required="true" data-id={choice.id}></lightning-input>
+                </div>
+                <div class="bottom-request-box slds-col">
+                        <lightning-textarea onkeyup={handleModificationChange} type="text" label="Modification Description" name="modificationDescription" placeholder="Enter your modification description here...." data-id={choice.id}></lightning-textarea>
+                </div>
+        </div>
+    </template>
+
+        <div class="slds-grid slds-grid_align-center">
+            <lightning-button onclick={handleModificationSave} class="slds-col" variant="brand" label="Save" slot="footer"></lightning-button>
+            </div>
+</template>
+
+
+</div>
+</div>
+</template>

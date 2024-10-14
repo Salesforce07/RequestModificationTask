@@ -1,0 +1,14 @@
+.search-bar-main-container{
+    position: relative;
+}
+
+.search-icon-container{
+    z-index: 0;
+}
+
+.selected-container{
+    position: absolute;
+    top: 0;
+    left: 10px;
+    right: 10px;
+}
